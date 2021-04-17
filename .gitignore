@@ -1,0 +1,9 @@
+askme/venv/
+askme/node_modules/
+.idea/
+.vscode/
+askme/.idea/
+askme/.vscode/
+*.pyc
+__pycache__/
+askme/__pycache__/

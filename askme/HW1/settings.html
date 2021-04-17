@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <link href="css/my.css" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <header>
+
+            <div class="container-fluid ">
+
+                <div class="row">
+
+                    <div class="col-3 logo">
+                        AskNikitina
+                    </div>
+
+                    <div class="col-6 searchField">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Ask!</button>
+                        </form>
+                    </div>
+
+                    <div class="col-1 headerAvatar">
+                        <img src="img/avatar.png">
+                    </div>
+
+                    <div class="col-2 profile">
+                        <div class="name">Ksenia Nikitina</div>
+                        <div class="profileHrefs">
+                            <a href="#">settings </a>
+                            <a href="#">log out</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+    </header>
+
+    <!-- Begin page content -->
+    <main class="flex-shrink-0">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-9">
+
+                    <div class="bigText">
+                        <span class="bigText">Settings</span>
+                    </div>
+
+                    <form class="fieldWidth">
+
+                        <div class="row mb-3">
+
+                            <label for="inputLogin" class="col-sm-2 col-form-label col-form-label-lg">Login</label>
+
+                            <div class="col-sm-10">
+                                <input type="Login" class="form-control form-control-lg" id="inputLogin" placeholder="dr_pepper">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label for="inputEmail" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
+
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="dr.pepper@mail.ru">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <label for="inputNickName" class="col-sm-2 col-form-label col-form-label-lg">NickName</label>
+
+                            <div class="col-sm-10">
+                                <input type="NickName" class="form-control form-control-lg" id="inputNickName" placeholder="Dr.Pepper">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3 uploadAvatar">
+
+                            <label for="inputNickName" class="col-sm-2 col-form-label col-form-label-lg">Upload avatar</label>
+
+                            <div class="col-sm-10">
+                                <div>
+                                    <img src="img/avatar.png">
+                                </div>
+                                <input class="form-control" id="formFileSm" type="file">
+                                <button class="btn btn-outline-success lowButton" type="submit">Save</button>
+                            </div>
+
+                        </div>
+                        
+                    </form>
+
+                </div>
+
+                <div class="col-3">
+
+                    <div class="rightBlock">
+                        <div class="bigText">
+                            <span>Popular Tags</span>
+                        </div>
+
+                        <div>
+                            <span class="tag redTag">perl</span>
+                            <span class="tag">python</span>
+                            <span class="tag greenTag">TechnoPark</span>
+                            <span class="tag greenTag">MySql</span>
+                            <span class="tag">django</span>
+                            <span class="tag orangeTag">Mail.ru</span>
+                            <span class="tag redTag">Firefox</span>
+                        </div>
+                    </div>
+
+                    <div class="rightBlock">
+                        <div class="bigText">
+                            <span>Best Members</span>
+                        </div>
+
+                        <div>
+                            <a href="#"><div class="member">Mr.Freeman</div></a>
+                            <a href="#"><div class="member">Dr.House</div></a>
+                            <a href="#"><div class="member">Bender</div></a>
+                            <a href="#"><div class="member">V Pupkin</div></a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <span>Made by Ksenia Nikitina (c) 2021</span>
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

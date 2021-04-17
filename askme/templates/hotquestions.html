@@ -1,0 +1,18 @@
+{% extends "include/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="bigText">
+        <span class="bigText">Hot Questions</span>
+    </div>
+
+    {% for question in questions %}
+
+        {% include "include/question.html" %}
+
+    {% endfor %}
+
+    {% include "include/pagination.html" %}
+
+{% endblock content %}

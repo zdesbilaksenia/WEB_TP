@@ -1,0 +1,5 @@
+<div class="underQuestionText">
+    <a href="{% url 'question' question.id %}"><span>answer(3)</span></a>
+    <span>Tags:</span>
+    <a href="{% url 'tag' question.tag %}"><span>{{ question.tag }}</span></a>
+</div>

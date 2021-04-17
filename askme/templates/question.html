@@ -1,0 +1,23 @@
+{% extends "include/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    {% include "include/bigquestion.html" %}
+
+    {% for question in questions %}
+
+        {% include "include/answer.html" %}
+
+    {% endfor %}
+
+    <div class="row putAnswer">
+        <form>
+            <textarea class="form-control form-control-lg" id="inputAnswer" rows="6" placeholder="Enter your answer..."></textarea>
+            <button class="btn btn-outline-success lowButton" type="submit">Answer</button>
+        </form>
+    </div>
+
+{% endblock content %}
+
+                

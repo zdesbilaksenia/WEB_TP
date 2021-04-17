@@ -1,0 +1,22 @@
+{% extends "include/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="bigText">
+    <span class="bigText">Tag: {{tag}}</span>
+</div>
+
+{% for question in questions %}
+
+    {% if question.tag == tag %}
+
+        {% include "include/question.html" %}
+
+    {% endif %}
+
+{% endfor %}
+
+{% include "include/pagination.html" %}
+
+{% endblock content %}    
