@@ -1,25 +1,18 @@
 from django.shortcuts import render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
-questions = [
-    {
-        'id': idx,
-        'title': f'Title number {idx}',
-        'tag': 'perl',
-        'text': f'Some text for question #{idx}'
-    } for idx in range(30)
-]
+from .models import Question, Answer, LikeToQuestion, LikeToAnswer, Profile, Tag
 
 
-def paginate(list, request):
-    paginator = Paginator(list, 10)
+def paginate(content_list, request):
+    paginator = Paginator(content_list, 10)
 
     page = request.GET.get('page')
-    list = paginator.get_page(page)
-    return list
+    content_list = paginator.get_page(page)
+    return content_list
 
 
 def index(request):
+    questions = Question.objects.new()
     content = paginate(questions, request)
     return render(request, 'index.html', {'questions': content})
 
@@ -33,8 +26,10 @@ def login(request):
 
 
 def question(request, pk):
-    question = questions[pk]
-    return render(request, 'question.html', {"question": question, 'questions': questions})
+    _question = Question.objects.one_question(pk)
+    answers = Answer.objects.filter(question=_question)
+    content = paginate(answers, request)
+    return render(request, 'question.html', {"question": question, "answers": content})
 
 
 def settings(request):
@@ -45,11 +40,13 @@ def signup(request):
     return render(request, 'signup.html', {})
 
 
-def tag(request, tag):
+def tag(request, tag_name):
+    questions = Question.objects.tag(tag_name)
     content = paginate(questions, request)
-    return render(request, 'tag.html', {"tag": tag, 'questions': content})
+    return render(request, 'tag.html', {"tag": tag_name, 'questions': content})
 
 
 def hotquestions(request):
+    questions = Question.objects.hot()
     content = paginate(questions, request)
     return render(request, 'hotquestions.html', {'questions': content})
