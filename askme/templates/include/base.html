@@ -83,49 +83,49 @@
         <div class="row">
 
             <div class="col-9">
-                {% block content%}
-                {% endblock content%}
+                {% block content %}
+                {% endblock content %}
             </div>
 
             <div class="col-3">
 
                 {% block side %}
-                <div class="rightBlock">
-                    <div class="bigText">
-                        <span>Popular Tags</span>
+                    <div class="rightBlock">
+                        <div class="bigText">
+                            <span>Popular Tags</span>
+                        </div>
+
+                        <div>
+                            <span class="tag redTag">perl</span>
+                            <span class="tag">python</span>
+                            <span class="tag greenTag">TechnoPark</span>
+                            <span class="tag greenTag">MySql</span>
+                            <span class="tag">django</span>
+                            <span class="tag orangeTag">Mail.ru</span>
+                            <span class="tag redTag">Firefox</span>
+                        </div>
                     </div>
 
-                    <div>
-                        <span class="tag redTag">perl</span>
-                        <span class="tag">python</span>
-                        <span class="tag greenTag">TechnoPark</span>
-                        <span class="tag greenTag">MySql</span>
-                        <span class="tag">django</span>
-                        <span class="tag orangeTag">Mail.ru</span>
-                        <span class="tag redTag">Firefox</span>
-                    </div>
-                </div>
+                    <div class="rightBlock">
+                        <div class="bigText">
+                            <span>Best Members</span>
+                        </div>
 
-                <div class="rightBlock">
-                    <div class="bigText">
-                        <span>Best Members</span>
+                        <div>
+                            <a href="#">
+                                <div class="member">Mr.Freeman</div>
+                            </a>
+                            <a href="#">
+                                <div class="member">Dr.House</div>
+                            </a>
+                            <a href="#">
+                                <div class="member">Bender</div>
+                            </a>
+                            <a href="#">
+                                <div class="member">V Pupkin</div>
+                            </a>
+                        </div>
                     </div>
-
-                    <div>
-                        <a href="#">
-                            <div class="member">Mr.Freeman</div>
-                        </a>
-                        <a href="#">
-                            <div class="member">Dr.House</div>
-                        </a>
-                        <a href="#">
-                            <div class="member">Bender</div>
-                        </a>
-                        <a href="#">
-                            <div class="member">V Pupkin</div>
-                        </a>
-                    </div>
-                </div>
 
                 {% endblock side %}
 
@@ -141,8 +141,6 @@
 <footer class="footer">
     <span>Made by Ksenia Nikitina (c) 2021</span>
 </footer>
-
-<script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 

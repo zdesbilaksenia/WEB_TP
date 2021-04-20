@@ -2,17 +2,17 @@
 
 <div class="row question">
 
-    {% include "../include/questionhead.html" %}
+    {% include "include/questionhead.html" %}
 
     <div class="col-9">
 
-        <a href = "{%url 'question' question.id %}"><h2>{{ question.title }}</h2></a>
+        <a href="{% url "question" question.id %}"><h2>{{ question.title }}</h2></a>
 
         <div>
             {{ question.text }}
         </div>
 
-        {% include "../include/underquestion.html" %}
+        {% include "include/underquestion.html" %}
 
     </div>
 

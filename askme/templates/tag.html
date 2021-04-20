@@ -3,20 +3,20 @@
 
 {% block content %}
 
-<div class="bigText">
-    <span class="bigText">Tag: {{tag}}</span>
-</div>
+    <div class="bigText">
+        <span class="bigText">Tag: {{ tag }}</span>
+    </div>
 
-{% for question in questions %}
+    {% for question in content %}
+        {% for tag in question.tags.all %}
+            {% if tag == tag %}
 
-    {% if question.tag == tag %}
+                {% include "include/question.html" %}
 
-        {% include "include/question.html" %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 
-    {% endif %}
-
-{% endfor %}
-
-{% include "include/pagination.html" %}
+    {% include "include/pagination.html" %}
 
 {% endblock content %}    

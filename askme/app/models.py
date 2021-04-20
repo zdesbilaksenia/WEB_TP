@@ -11,10 +11,10 @@ class QuestionManager(models.Manager):
         return self.all().order_by("-rating")
 
     def tag(self, tag):
-        return self.all().filter(tags__name=tag)
+        return self.all().filter(tags=tag)
 
     def one_question(self, pk):
-        return self.filter(id=pk)
+        return self.all().filter(id=pk).first()
 
 
 class Question(models.Model):

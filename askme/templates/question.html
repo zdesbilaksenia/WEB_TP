@@ -5,15 +5,18 @@
 
     {% include "include/bigquestion.html" %}
 
-    {% for question in questions %}
+    {% for answer in content %}
 
         {% include "include/answer.html" %}
 
     {% endfor %}
 
+    {% include "include/pagination.html" %}
+
     <div class="row putAnswer">
         <form>
-            <textarea class="form-control form-control-lg" id="inputAnswer" rows="6" placeholder="Enter your answer..."></textarea>
+            <textarea class="form-control form-control-lg" id="inputAnswer" rows="6"
+                      placeholder="Enter your answer..."></textarea>
             <button class="btn btn-outline-success lowButton" type="submit">Answer</button>
         </form>
     </div>

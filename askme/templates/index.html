@@ -5,10 +5,10 @@
 
     <div class="bigText">
         <span class="bigText">New Questions</span>
-        <a href="{% url 'hot' %}">Hot Questions</a>
+        <a href="{% url "hot" %}">Hot Questions</a>
     </div>
 
-    {% for question in questions %}
+    {% for question in content %}
 
         {% include "include/question.html" %}
 
