@@ -7,3 +7,4 @@ askme/.vscode/
 *.pyc
 __pycache__/
 askme/__pycache__/
+askme/db.sqlite3
