@@ -1,5 +1,6 @@
 {% extends "include/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block content %}
 
@@ -14,10 +15,12 @@
     {% include "include/pagination.html" %}
 
     <div class="row putAnswer">
-        <form>
-            <textarea class="form-control form-control-lg" id="inputAnswer" rows="6"
-                      placeholder="Enter your answer..."></textarea>
-            <button class="btn btn-outline-success lowButton" type="submit">Answer</button>
+        <form class="form mt-5" method="POST" novalidate>
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button class="btn btn-outline-success lowButton" type="submit">Answer</button>
+            {% endbuttons %}
         </form>
     </div>
 

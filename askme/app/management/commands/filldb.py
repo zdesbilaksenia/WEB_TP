@@ -27,10 +27,10 @@ class Command(BaseCommand):
         num = options["all"]
 
         if num:
+            self.fill_users(num * 10)
             self.fill_tags(num * 10)
             self.fill_questions(num * 100)
             self.fill_answers(num * 1000)
-            self.fill_users(num * 10)
             self.fill_likes_on_question(num * 2000)
             self.fill_likes_on_answer(num * 2000)
         if num_of_tags:
@@ -63,7 +63,12 @@ class Command(BaseCommand):
                                                title=faker.sentence()[:128],
                                                text=". ".join(faker.sentences(faker.random_int(min=2, max=5))),
                                                date=faker.date_between("-100d", "today"))
-            question.tags.add(choice(tags))
+            tag1 = choice(tags)
+            tag2 = choice(tags)
+            while tag1 == tag2:
+                tag2 = choice(tags)
+            question.tags.add(tag1)
+            question.tags.add(tag2)
 
     def fill_answers(self, n):
         questions = list(
@@ -87,6 +92,7 @@ class Command(BaseCommand):
         batch_size = 100000
         while True:
             batch = list(islice(answers, batch_size))
+            del answers[:batch_size]
             if not batch:
                 break
             Answer.objects.bulk_create(batch, batch_size)
@@ -103,7 +109,7 @@ class Command(BaseCommand):
 
     def fill_tags(self, n):
         for i in range(n):
-            Tag.objects.create(name=faker.word())
+            Tag.objects.create(name=faker.word(), rating=faker.random.randint(0, 255))
 
     def fill_likes_on_question(self, n):
         questions = list(
@@ -120,11 +126,15 @@ class Command(BaseCommand):
         for i in range(n):
             like = LikeToQuestion(question_id=choice(questions), user_id=choice(users),
                                   is_liked=faker.random.randint(-1, 1))
+            question = Question.objects.get(id=like.question_id)
+            question.rating += like.is_liked
+            question.save()
             likes.append(like)
 
         batch_size = 100000
         while True:
             batch = list(islice(likes, batch_size))
+            del likes[:batch_size]
             if not batch:
                 break
             LikeToQuestion.objects.bulk_create(batch, batch_size)
@@ -144,11 +154,15 @@ class Command(BaseCommand):
         for i in range(n):
             like = LikeToAnswer(answer_id=choice(answers), user_id=choice(users),
                                 is_liked=faker.random.randint(-1, 1))
+            answer = Answer.objects.get(id=like.answer_id)
+            answer.rating += like.is_liked
+            answer.save()
             likes.append(like)
 
-        batch_size = 100000
+        batch_size = 10000
         while True:
             batch = list(islice(likes, batch_size))
+            del likes[:batch_size]
             if not batch:
                 break
             LikeToAnswer.objects.bulk_create(batch, batch_size)

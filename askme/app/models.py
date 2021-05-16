@@ -17,6 +17,11 @@ class QuestionManager(models.Manager):
         return self.all().filter(id=pk).first()
 
 
+class TagManager(models.Manager):
+    def hot(self):
+        return self.all().order_by("-rating")[:7]
+
+
 class Question(models.Model):
     author = models.ForeignKey("Profile", on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
@@ -36,7 +41,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey("Question", on_delete=models.CASCADE)
+    question = models.ForeignKey("Question", on_delete=models.CASCADE, related_name="answers")
     author = models.ForeignKey("Profile", on_delete=models.CASCADE)
     text = models.TextField()
     correct = models.BooleanField(default=False)
@@ -52,6 +57,8 @@ class Answer(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=32)
+    rating = models.PositiveIntegerField(default=0)
+    objects = TagManager()
 
     class Meta:
         verbose_name = "Тэг"
@@ -90,6 +97,9 @@ class LikeToQuestion(models.Model):
 
     def __str__(self):
         return self.user.login + " оценил " + self.question.title
+
+    # def update_rating(self):
+    #     self.question.rating += self.is_liked
 
 
 class LikeToAnswer(models.Model):

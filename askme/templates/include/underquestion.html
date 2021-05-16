@@ -1,6 +1,6 @@
 <div class="underQuestionText">
 
-    <a href="{% url "question" question.id %}"><span>answer(3)</span></a>
+    <a href="{% url "question" question.id %}"><span>answer({{ question.answers.count }})</span></a>
     <span>Tags:</span>
 
     {% for tag in question.tags.all %}

@@ -42,32 +42,33 @@
             <div class="col-6 searchField">
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Ask!</button>
                 </form>
+                <button class="btn btn-outline-success" type="submit"><a href="{% url 'ask' %}">Ask!</a></button>
             </div>
 
-            <!--Для авторизированного пользователя
-            <div class="col-1 headerAvatar">
-                <img src="img/avatar.png">
-            </div>
+            {% if request.user.is_authenticated %}
 
-            <div class="col-2 profile">
-                <div class="name">Ksenia Nikitina</div>
-                <div class="profileHrefs">
-                    <a href="{% url 'settings' %}">settings </a>
-                    <a href="{% url 'login' %}">log out</a>
+                <div class="col-1 headerAvatar">
+                    <img src="img/avatar.png">
                 </div>
-            </div> -->
 
-
-            <!--Для неавторизированного пользователя-->
-            <div class="col-2 profile">
-                <div class="profileHrefs">
-                    <a href="{% url 'login' %}">log in </a>
-                    <a href="{% url 'signup' %}">register</a>
+                <div class="col-2 profile">
+                    <div class="name">{{ request.user.username }}</div>
+                    <div class="profileHrefs">
+                        <a href="{% url 'settings' %}">settings </a>
+                        <a href="{% url 'logout' %}">log out</a>
+                    </div>
                 </div>
-            </div>
+            {% else %}
 
+                <div class="col-2 profile">
+                    <div class="profileHrefs">
+                        <a href="{% url 'login' %}">log in </a>
+                        <a href="{% url 'signup' %}">register</a>
+                    </div>
+                </div>
+
+            {% endif %}
 
         </div>
 
@@ -95,14 +96,14 @@
                             <span>Popular Tags</span>
                         </div>
 
-                        <div>
-                            <span class="tag redTag">perl</span>
-                            <span class="tag">python</span>
-                            <span class="tag greenTag">TechnoPark</span>
-                            <span class="tag greenTag">MySql</span>
-                            <span class="tag">django</span>
-                            <span class="tag orangeTag">Mail.ru</span>
-                            <span class="tag redTag">Firefox</span>
+                        <div class="popularTags">
+                            <a href="{% url "tag" tags.0 %}"><span class="tag redTag">{{ tags.0 }}</span></a>
+                            <a href="{% url "tag" tags.1 %}"><span class="tag">{{ tags.1 }}</span></a>
+                            <a href="{% url "tag" tags.2 %}"><span class="tag greenTag">{{ tags.2 }}</span></a>
+                            <a href="{% url "tag" tags.3 %}"><span class="tag greenTag">{{ tags.3 }}</span></a>
+                            <a href="{% url "tag" tags.4 %}"><span class="tag">{{ tags.4 }}</span></a>
+                            <a href="{% url "tag" tags.5 %}"><span class="tag orangeTag">{{ tags.5 }}</span></a>
+                            <a href="{% url "tag" tags.6 %}"><span class="tag redTag">{{ tags.6 }}</span></a>
                         </div>
                     </div>
 
