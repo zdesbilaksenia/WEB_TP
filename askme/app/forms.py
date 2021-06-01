@@ -19,7 +19,6 @@ class SignUpForm(forms.Form):
                                                                  "placeholder": "Enter your password"}))
     password_repeat = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control form-control-lg",
                                                                         "placeholder": "Enter your password again"}))
-
     avatar = forms.ImageField(required=False, widget=forms.FileInput(attrs={"class": "form-control form-control-lg"}))
 
     def clean(self):

@@ -1,10 +1,11 @@
 from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.db.models import F
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 from .models import Question, Answer, LikeToQuestion, LikeToAnswer, Profile, Tag
 from .forms import *
@@ -119,7 +120,7 @@ def settings(request):
             return HttpResponseForbidden()
 
     if request.method == "POST":
-        form = SettingsForm(data=request.POST)
+        form = SettingsForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             user = request.user
             if user.is_authenticated:
@@ -132,6 +133,9 @@ def settings(request):
                     user.email = form.cleaned_data["email"]
                     user.save()
                     auth.login(request, user)
+                if form.files.get("avatar"):
+                    user.profile.avatar = form.files.get("avatar")
+                    user.profile.save()
     return render(request, "settings.html", {"tags": tags_list, "form": form})
 
 
@@ -143,10 +147,13 @@ def signup(request):
         form = SignUpForm()
 
     if request.method == "POST":
-        form = SignUpForm(data=request.POST)
+        form = SignUpForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             user = form.save()
             if user is not None:
+                if form.files.get("avatar"):
+                    user.profile.avatar = form.files.get("avatar")
+                    user.profile.save()
                 auth.login(request, user)
                 return redirect("index")
     return render(request, "signup.html", {"tags": tags_list, "form": form})
@@ -170,3 +177,39 @@ def hotquestions(request):
     content = paginate(questions, request)
 
     return render(request, "hotquestions.html", {"content": content, "tags": tags_list})
+
+
+@require_POST
+@login_required
+def vote(request):
+    data = request.POST
+    action = data['action']
+
+    if data['model'] == "question":
+        question = Question.objects.get(id=data['id'])
+        inc = LikeToQuestion.actions[action]
+        question.rating = F('rating') + inc
+        question.save()
+        LikeToQuestion.objects.create(question=question, user=request.user.profile, is_liked=inc)
+        return JsonResponse({'rating': Question.objects.get(id=data['id']).rating})
+    if data['model'] == "answer":
+        answer = Answer.objects.get(id=data['id'])
+        inc = LikeToAnswer.actions[action]
+        answer.rating = F('rating') + inc
+        answer.save()
+        LikeToAnswer.objects.create(answer=answer, user=request.user.profile, is_liked=inc)
+        return JsonResponse({'rating': Answer.objects.get(id=data['id']).rating})
+
+
+@require_POST
+@login_required
+def correct(request):
+    data = request.POST
+    answer = Answer.objects.get(id=data['id'])
+    if request.user.profile == Question.objects.get(id=data['qid']).author:
+        if data['correct'] == 'true':
+            answer.correct = True
+        else:
+            answer.correct = False
+        answer.save()
+    return JsonResponse({'correct': Answer.objects.get(id=data['id']).correct})

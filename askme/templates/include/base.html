@@ -49,7 +49,7 @@
             {% if request.user.is_authenticated %}
 
                 <div class="col-1 headerAvatar">
-                    <img src="img/avatar.png">
+                    <img src="{{ request.user.profile.avatar.url }}">
                 </div>
 
                 <div class="col-2 profile">
@@ -138,6 +138,12 @@
 
 </main>
 
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/csrf.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+{% block jscode %}
+{% endblock %}
 
 <footer class="footer">
     <span>Made by Ksenia Nikitina (c) 2021</span>

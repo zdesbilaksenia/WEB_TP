@@ -16,3 +16,8 @@
     {% include "include/pagination.html" %}
 
 {% endblock content %}
+
+{% block jscode %}
+    <script src="{% static 'js/vote.js' %}"></script>
+    <script src="{% static 'js/correct.js' %}"></script>
+{% endblock jscode %}

@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from app import views
 
@@ -12,6 +14,11 @@ urlpatterns = [
     path('tag/<str:tag_name>/', views.tag, name="tag"),
     path('question/<int:pk>/', views.question, name="question"),
     path('hot/', views.hotquestions, name="hot"),
+    path('vote/', views.vote, name="vote"),
+    path('correct/', views.correct, name="correct"),
     path('logout/', views.logout, name="logout"),
     path('', views.index, name="index")
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

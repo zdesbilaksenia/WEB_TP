@@ -70,7 +70,7 @@ class Tag(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(default="img/avatar.png")
+    avatar = models.ImageField(upload_to="avatar/%Y/%m/%d", default="avatar.png")
     login = models.CharField(max_length=32)
 
     class Meta:
@@ -88,6 +88,7 @@ class LikeToQuestion(models.Model):
     dislike = -1
     no_like = 0
     like_choice = [(like, "like"), (dislike, "dislike"), (no_like, "no_like")]
+    actions = {x[1]: x[0] for x in like_choice}
 
     is_liked = models.SmallIntegerField(choices=like_choice, default=no_like)
 
@@ -98,9 +99,6 @@ class LikeToQuestion(models.Model):
     def __str__(self):
         return self.user.login + " оценил " + self.question.title
 
-    # def update_rating(self):
-    #     self.question.rating += self.is_liked
-
 
 class LikeToAnswer(models.Model):
     user = models.ForeignKey("Profile", on_delete=models.CASCADE)
@@ -109,6 +107,7 @@ class LikeToAnswer(models.Model):
     dislike = -1
     no_like = 0
     like_choice = [(like, "like"), (dislike, "dislike"), (no_like, "no_like")]
+    actions = {x[1]: x[0] for x in like_choice}
 
     is_liked = models.SmallIntegerField(choices=like_choice, default=no_like)
 

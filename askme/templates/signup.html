@@ -7,13 +7,12 @@
     <div class="bigText">
         <span class="bigText">Sign Up</span>
     </div>
-    <form class="form mt-5" method="POST" novalidate>
+    <form class="form mt-5" method="POST" novalidate enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
             <button class="btn btn-outline-success lowButton" type="submit">Register!</button>
         {% endbuttons %}
     </form>
-    {#{% include "include/signup.html" %}#}
 
 {% endblock content %}
