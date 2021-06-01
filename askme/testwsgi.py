@@ -1,33 +1,23 @@
-HELLO_WORLD = b"Hello world!\n"
+import struct
+from pprint import pformat
+
+from django.utils.http import parse_qsl
 
 
 def application(environ, start_response):
-    """Simplest possible application object"""
-    status = '200 OK'
-    response_headers = [('Content-type', 'text/plain')]
-    start_response(status, response_headers)
-    return [HELLO_WORLD]
+    output = [str.encode(environ['REQUEST_METHOD']) + b'\n']
 
+    d = parse_qsl(environ['QUERY_STRING'])
+    if environ['REQUEST_METHOD'] == 'POST':
+        output.append(str.encode('Post data:\n'))
+        output.append(str.encode(pformat(environ['wsgi.input'].read())))
 
-class AppClass:
-    """Produce the same output, but using a class
-    (Note: 'AppClass' is the "application" here, so calling it
-    returns an instance of 'AppClass', which is then the iterable
-    return value of the "application callable" as required by
-    the spec.
-    If we wanted to use *instances* of 'AppClass' as application
-    objects instead, we would have to implement a '__call__'
-    method, which would be invoked to execute the application,
-    and we would need to create an instance for use by the
-    server or gateway.
-    """
+    if environ['REQUEST_METHOD'] == 'GET':
+        if environ['QUERY_STRING'] != '':
+            output.append(str.encode('Get data:\n'))
+            for ch in d:
+                output.append(str.encode(' = '.join(ch)))
+                output.append(str.encode('\n'))
 
-    def __init__(self, environ, start_response):
-        self.environ = environ
-        self.start = start_response
-
-    def __iter__(self):
-        status = '200 OK'
-        response_headers = [('Content-type', 'text/plain')]
-        self.start(status, response_headers)
-        yield HELLO_WORLD
+    start_response('200 OK', [('Content-type', 'text/plain')])
+    return output
