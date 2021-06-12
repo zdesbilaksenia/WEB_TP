@@ -14,15 +14,21 @@
 
     {% include "include/pagination.html" %}
 
-    <div class="row putAnswer">
-        <form class="form mt-5" method="POST" novalidate>
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            {% buttons %}
-                <button class="btn btn-outline-success lowButton" type="submit">Answer</button>
-            {% endbuttons %}
-        </form>
-    </div>
+    {% if request.user.is_authenticated %}
+
+        <div class="row putAnswer">
+            <form class="form mt-5" method="POST" novalidate>
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button class="btn btn-outline-success lowButton" type="submit">Answer</button>
+                {% endbuttons %}
+            </form>
+        </div>
+
+    {% else %}
+        {% include "include/autorize.html" %}
+    {% endif %}
 
 {% endblock content %}
 

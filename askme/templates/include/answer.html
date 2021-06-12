@@ -4,19 +4,31 @@
 
     <div class="col-9">
 
+        <a name="{{ answer.id }}"></a>
+
         <div>
             {{ answer.text }}
         </div>
 
         <div class="form-check checkCorrect">
-            {% if answer.correct == True %}
-                <input class="js-correct form-check-input" type="checkbox" id="correct{{ answer.id }}"
-                       data-id="{{ answer.id }}" data-qid="{{ question.id }}" checked>
+            {% if not question.author.user == request.user %}
+                {% if answer.correct == True %}
+                    <input class="js-correct form-check-input" type="checkbox" id="correct{{ answer.id }}"
+                           data-id="{{ answer.id }}" data-qid="{{ question.id }}" checked disabled>
+                {% else %}
+                    <input class="js-correct form-check-input" type="checkbox" id="correct{{ answer.id }}"
+                           data-id="{{ answer.id }}" data-qid="{{ question.id }}" disabled>
+                {% endif %}
             {% else %}
-                <input class="js-correct form-check-input" type="checkbox" id="correct{{ answer.id }}"
-                       data-id="{{ answer.id }}" data-qid="{{ question.id }}">
+                {% if answer.correct == True %}
+                    <input class="js-correct form-check-input" type="checkbox" id="correct{{ answer.id }}"
+                           data-id="{{ answer.id }}" data-qid="{{ question.id }}" checked>
+                {% else %}
+                    <input class="js-correct form-check-input" type="checkbox" id="correct{{ answer.id }}"
+                           data-id="{{ answer.id }}" data-qid="{{ question.id }}">
+                {% endif %}
             {% endif %}
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label">
                 Correct!
             </label>
         </div>

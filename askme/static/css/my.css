@@ -9,6 +9,16 @@ main > .container {
     margin-bottom: 15px;
 }
 
+.auto {
+    text-align: center;
+    font-size: 30px;
+    border: 1px red solid;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
 .questionImg img {
     margin-left: auto;
     margin-right: auto;
@@ -66,7 +76,7 @@ header {
     margin: auto;
 }
 
-.searchField a{
+.searchField a {
     text-decoration: none;
     color: black;
 }

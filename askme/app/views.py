@@ -95,6 +95,8 @@ def question(request, pk):
         form = AnswerForm()
 
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            return redirect('%s?next=%s' % ('/login/', request.path))
         form = AnswerForm(data=request.POST)
         profile = Profile.objects.filter(user=request.user).values("id")
         if form.is_valid():
@@ -102,7 +104,7 @@ def question(request, pk):
                                            author_id=profile,
                                            text=form.cleaned_data["text"])
             return redirect(reverse("question", kwargs={"pk": _question.id}) + "?page="
-                            + str(content.paginator.num_pages))
+                            + str(content.paginator.num_pages)+"#"+str(answer.id))
 
     return render(request, "question.html",
                   {"question": _question, "content": content, "tags": tags_list, "form": form})
@@ -213,3 +215,7 @@ def correct(request):
             answer.correct = False
         answer.save()
     return JsonResponse({'correct': Answer.objects.get(id=data['id']).correct})
+
+
+def test(request):
+    return render(request, "sample.html")
