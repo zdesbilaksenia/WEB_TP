@@ -28,6 +28,10 @@ class SignUpForm(forms.Form):
 
         if password != password_repeat:
             self.add_error(None, "Passwords do not match!")
+        if User.objects.get(username=self.cleaned_data.get("username")) is not None:
+            self.add_error(None, "User exists!")
+        if User.objects.filter(email=self.cleaned_data.get("email")).filter() is not None:
+            self.add_error(None, "Email exists!")
 
     def save(self):
         user = User.objects.create(username=self.cleaned_data.get("username"),
@@ -49,7 +53,7 @@ class AskForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control form-control-lg",
                                                           "placeholder": "How to build a moonpark?"}))
     text = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control form-control-lg",
-                                                         "placeholder": "Really how?", "rows": 8}))
+                                                        "placeholder": "Really how?", "rows": 8}))
     tags = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control form-control-lg",
                                                          "placeholder": "Firefox, Mail.ru"}))
 

@@ -80,7 +80,8 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect("index")
+    next_p = request.GET.get("next", default="/")
+    return redirect(next_p)
 
 
 def question(request, pk):

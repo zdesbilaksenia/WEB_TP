@@ -56,7 +56,7 @@
                     <div class="name">{{ request.user.username }}</div>
                     <div class="profileHrefs">
                         <a href="{% url 'settings' %}">settings </a>
-                        <a href="{% url 'logout' %}">log out</a>
+                        <a href="{% url 'logout' %}?next={{ request.path }}">log out</a>
                     </div>
                 </div>
             {% else %}
